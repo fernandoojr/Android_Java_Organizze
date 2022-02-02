@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">organizze</string>
+    <string name="title_activity_principal">PrincipalActivity</string>
 </resources>
