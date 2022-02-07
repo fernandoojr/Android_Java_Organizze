@@ -14,7 +14,7 @@
         android:ems="10"
         android:gravity="center|end"
         android:hint="R$00,00"
-        android:inputType="textPersonName"
+        android:inputType="number|textPersonName"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

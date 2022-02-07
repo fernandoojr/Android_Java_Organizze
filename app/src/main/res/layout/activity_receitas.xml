@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.DespesasActivity">
+    tools:context=".activity.ReceitasActivity">
 
     <EditText
         android:id="@+id/txtValor"
@@ -14,7 +14,7 @@
         android:ems="10"
         android:gravity="center|end"
         android:hint="R$00,00"
-        android:inputType="textPersonName"
+        android:inputType="number|textPersonName"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,6 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtValor">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Data "
@@ -55,6 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtCategoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Categoria" />
@@ -73,6 +75,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtDescricao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Descrição" />
@@ -84,6 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        android:onClick="salvarReceita"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
