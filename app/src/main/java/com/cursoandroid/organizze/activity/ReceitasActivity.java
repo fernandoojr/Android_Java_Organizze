@@ -58,6 +58,7 @@ public class ReceitasActivity extends AppCompatActivity {
             atualizarReceita();
 
             movimentacao.salvar(txtData.getText().toString());
+            finish();
         }
     }
 
