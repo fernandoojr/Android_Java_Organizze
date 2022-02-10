@@ -8,7 +8,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Movimentacao {
-    private String data, categoria, descricao, tipo;
+    private String data, categoria, descricao, tipo, key;
     private Double valor;
 
     public Movimentacao() {
@@ -64,5 +64,13 @@ public class Movimentacao {
 
     public void setValor(Double valor) {
         this.valor = valor;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }
