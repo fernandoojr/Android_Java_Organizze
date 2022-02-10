@@ -14,6 +14,8 @@ import com.cursoandroid.organizze.helper.DateCustom;
 import com.cursoandroid.organizze.model.Movimentacao;
 import com.cursoandroid.organizze.model.Usuario;
 import com.github.clans.fab.FloatingActionButton;
+import com.github.rtoshiro.util.format.SimpleMaskFormatter;
+import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -43,12 +45,17 @@ public class DespesasActivity extends AppCompatActivity {
 
         //data atual no txtData
         txtData.setText(DateCustom.dataAtual());
+
+        SimpleMaskFormatter smfDt = new SimpleMaskFormatter("NN/NN/NNNN");
+        MaskTextWatcher mtwDt = new MaskTextWatcher(txtData, smfDt);
+        txtData.addTextChangedListener(mtwDt);
+
         recuperarDespesaTotal();
     }
 
     public void salvarDespesa(View view){
         if(validarCamposDespesa()) {
-            despesaPreenchida = Double.parseDouble(txtValor.getText().toString());
+            despesaPreenchida = Double.parseDouble(txtValor.getText().toString().replace(",", "."));
             movimentacao = new Movimentacao();
             movimentacao.setValor(despesaPreenchida);
             movimentacao.setCategoria(txtCategoria.getText().toString());
@@ -65,29 +72,34 @@ public class DespesasActivity extends AppCompatActivity {
     }
 
     public Boolean validarCamposDespesa(){
-        String valor = txtValor.getText().toString();
-        String data = txtData.getText().toString();
-        String categoria = txtCategoria.getText().toString();
-        String descricao = txtDescricao.getText().toString();
-        if(!valor.isEmpty()){
-            if(!data.isEmpty()){
-                if(!categoria.isEmpty()){
-                    if(!descricao.isEmpty()){
-                        return true;
+        try {
+            Double valor = Double.parseDouble(txtValor.getText().toString().replace(",", "."));
+            String data = txtData.getText().toString();
+            String categoria = txtCategoria.getText().toString();
+            String descricao = txtDescricao.getText().toString();
+            if (valor > 0) {
+                if (!data.isEmpty()) {
+                    if (!categoria.isEmpty()) {
+                        if (!descricao.isEmpty()) {
+                            return true;
+                        } else {
+                            Toast.makeText(this, "Descrição não foi preenchida", Toast.LENGTH_LONG).show();
+                            return false;
+                        }
                     } else {
-                        Toast.makeText(this, "Descrição não foi preenchida", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Categoria não foi preenchida", Toast.LENGTH_LONG).show();
                         return false;
                     }
                 } else {
-                    Toast.makeText(this, "Categoria não foi preenchida", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Data não foi preenchida", Toast.LENGTH_LONG).show();
                     return false;
                 }
             } else {
-                Toast.makeText(this, "Data não foi preenchida", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Valor não foi preenchido", Toast.LENGTH_LONG).show();
                 return false;
             }
-        } else {
-            Toast.makeText(this, "Valor não foi preenchido", Toast.LENGTH_LONG).show();
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Algum campo está preenchido incorretamente! ", Toast.LENGTH_SHORT).show();
             return false;
         }
     }

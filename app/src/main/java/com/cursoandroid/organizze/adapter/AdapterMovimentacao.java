@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cursoandroid.organizze.R;
 import com.cursoandroid.organizze.model.Movimentacao;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class AdapterMovimentacao extends RecyclerView.Adapter<AdapterMovimentacao.MyViewHolder> {
@@ -36,13 +37,18 @@ public class AdapterMovimentacao extends RecyclerView.Adapter<AdapterMovimentaca
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Movimentacao movimentacao = listaMovimentacao.get(position);
         holder.txtDescricao.setText(movimentacao.getDescricao());
-        holder.txtValor.setText(movimentacao.getValor().toString());
+
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        String valorFormatado = decimalFormat.format(movimentacao.getValor());
+        holder.txtValor.setText(valorFormatado);
+
         holder.txtTitulo.setText(movimentacao.getCategoria());
         holder.txtValor.setTextColor(context.getResources().getColor(R.color.colorAccentReceita));
 
+
         if(movimentacao.getTipo().equals("d")){
             holder.txtValor.setTextColor(context.getResources().getColor(R.color.colorAccent));
-            holder.txtValor.setText("-"+movimentacao.getValor());
+            holder.txtValor.setText("-"+valorFormatado);
         }
     }
 
