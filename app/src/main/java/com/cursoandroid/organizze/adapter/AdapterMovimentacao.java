@@ -42,7 +42,7 @@ public class AdapterMovimentacao extends RecyclerView.Adapter<AdapterMovimentaca
         String valorFormatado = decimalFormat.format(movimentacao.getValor());
         holder.txtValor.setText(valorFormatado);
 
-        holder.txtTitulo.setText(movimentacao.getCategoria());
+        holder.txtTitulo.setText(movimentacao.getData());
         holder.txtValor.setTextColor(context.getResources().getColor(R.color.colorAccentReceita));
 
 

@@ -40,7 +40,6 @@ public class DespesasActivity extends AppCompatActivity {
 
         txtData = findViewById(R.id.txtData);
         txtDescricao = findViewById(R.id.txtDescricao);
-        txtCategoria = findViewById(R.id.txtCategoria);
         txtValor = findViewById(R.id.txtValor);
 
         //data atual no txtData
@@ -58,7 +57,6 @@ public class DespesasActivity extends AppCompatActivity {
             despesaPreenchida = Double.parseDouble(txtValor.getText().toString().replace(",", "."));
             movimentacao = new Movimentacao();
             movimentacao.setValor(despesaPreenchida);
-            movimentacao.setCategoria(txtCategoria.getText().toString());
             movimentacao.setDescricao(txtDescricao.getText().toString());
             movimentacao.setData(txtData.getText().toString());
             movimentacao.setTipo("d");
@@ -66,7 +64,7 @@ public class DespesasActivity extends AppCompatActivity {
             despesaAtualizada = despesaPreenchida+despesaTotal;
             atualizarDespesa();
 
-            movimentacao.salvar(txtData.getText().toString());
+            movimentacao.salvar();
             finish();
         }
     }
@@ -75,19 +73,13 @@ public class DespesasActivity extends AppCompatActivity {
         try {
             Double valor = Double.parseDouble(txtValor.getText().toString().replace(",", "."));
             String data = txtData.getText().toString();
-            String categoria = txtCategoria.getText().toString();
             String descricao = txtDescricao.getText().toString();
             if (valor > 0) {
                 if (!data.isEmpty()) {
-                    if (!categoria.isEmpty()) {
-                        if (!descricao.isEmpty()) {
-                            return true;
-                        } else {
-                            Toast.makeText(this, "Descrição não foi preenchida", Toast.LENGTH_LONG).show();
-                            return false;
-                        }
+                    if (!descricao.isEmpty()) {
+                        return true;
                     } else {
-                        Toast.makeText(this, "Categoria não foi preenchida", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Descrição não foi preenchida", Toast.LENGTH_LONG).show();
                         return false;
                     }
                 } else {

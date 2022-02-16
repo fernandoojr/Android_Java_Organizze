@@ -1,5 +1,7 @@
 package com.cursoandroid.organizze.model;
 
+import android.content.Intent;
+
 import com.cursoandroid.organizze.config.ConfiguracaoFirebase;
 import com.cursoandroid.organizze.helper.Base64Custom;
 import com.cursoandroid.organizze.helper.DateCustom;
@@ -7,14 +9,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Movimentacao {
-    private String data, categoria, descricao, tipo, key;
+public class Movimentacao implements Comparable<Movimentacao>{
+    private String data, descricao, tipo, key;
     private Double valor;
 
     public Movimentacao() {
     }
 
-    public void salvar(String dataEscolhida){
+    public void salvar(){
         DatabaseReference firebase = ConfiguracaoFirebase.getFirebaseDatabase();
         FirebaseAuth autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
@@ -32,14 +34,6 @@ public class Movimentacao {
 
     public void setData(String data) {
         this.data = data;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
     }
 
     public String getDescricao() {
@@ -72,5 +66,20 @@ public class Movimentacao {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    @Override
+    public int compareTo(Movimentacao movimentacao) {
+        String aux [] = this.data.split("/");
+        int diaThis = Integer.parseInt(aux[0]);
+        String aux2[] = movimentacao.data.split("/");
+        int diaMovimentacao = Integer.parseInt(aux2[0]);
+        if(diaThis < diaMovimentacao){
+            return -1;
+        }
+        else if(diaThis > diaMovimentacao){
+            return 1;
+        }
+        return this.getData().compareToIgnoreCase(movimentacao.getData());
     }
 }

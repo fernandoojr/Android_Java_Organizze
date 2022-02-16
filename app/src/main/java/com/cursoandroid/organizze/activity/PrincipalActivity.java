@@ -40,6 +40,7 @@ import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PrincipalActivity extends AppCompatActivity {
@@ -189,6 +190,7 @@ public class PrincipalActivity extends AppCompatActivity {
                     movimentacao.setKey(dados.getKey());
                     movimentacoes.add(movimentacao);
                 }
+                Collections.sort(movimentacoes);
                 adapterMovimentacao.notifyDataSetChanged();
             }
 
